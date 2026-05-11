@@ -55,6 +55,7 @@ graph TD
 ## 📄 Output Data Structure
 
 ![Screenshot of the final CSV output showing calculated WWR](csv-output-data.png)
+
 The tool outputs a clean, simulation-ready CSV file mapped per floor:
 
 | Floor | Elevation Z (m) | Height (m) | Gross Perimeter (m) | Gross Wall Area (sqm) | Glazing Area (sqm) | WWR % |
