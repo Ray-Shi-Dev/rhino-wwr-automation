@@ -47,7 +47,7 @@ graph TD
 
 1. Open your 3D thermal massing model in Rhino.
 2. Ensure your layers are structured logically (e.g., above-ground zones on standard layers, underground zones prefixed with `B_`, and windows on a `.WINDOW` layer).
-3. Run `EditPythonScript` and execute `calculate_wwr_massing_flat_v6.py`.
+3. Run `EditPythonScript` and execute `wwr_extractor.py`.
 4. The script will run silently in the background (disabling Redraw for maximum computational speed).
 5. A save dialog will appear to export the clean `.csv` dataset.
 
