@@ -4,6 +4,7 @@ A Python tool for Rhino that automates the extraction of Window-to-Wall Ratios d
 
 ## 🚀 The Problem
 
+![Screenshot showing complex thermal massing geometry in Rhino](rhino-massing-model.png)
 In environmental design and energy modeling, calculating the accurate Window-to-Wall Ratio (WWR) is a critical but notoriously time-consuming step. Standard architectural models are built for visual representation, not data extraction, leading to several geometric roadblocks:
 * **The "Swiss Cheese" Effect:** Floor slabs with interior holes (elevator cores, shafts) inflate perimeter calculations if blindly measured.
 * **Micro-Gaps:** Thermal zones modeled with tiny 1-10mm gaps cause standard Boolean Union algorithms to fail.
@@ -53,6 +54,7 @@ graph TD
 
 ## 📄 Output Data Structure
 
+![Screenshot of the final CSV output showing calculated WWR](csv-output-data.png)
 The tool outputs a clean, simulation-ready CSV file mapped per floor:
 
 | Floor | Elevation Z (m) | Height (m) | Gross Perimeter (m) | Gross Wall Area (sqm) | Glazing Area (sqm) | WWR % |
