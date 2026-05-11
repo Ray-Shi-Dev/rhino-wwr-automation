@@ -41,9 +41,32 @@ graph TD
     D --> L
     L -->|Calculate Z-Overlap| M[Determine Floor-Specific Ratio]
     M --> N[Calculate Distributed Glazing Area]
-    
+
+```
+## 🛠 Usage
+
+1. Open your 3D thermal massing model in Rhino.
+2. Ensure your layers are structured logically (e.g., above-ground zones on standard layers, underground zones prefixed with `B_`, and windows on a `.WINDOW` layer).
+3. Run `EditPythonScript` and execute `calculate_wwr_massing_flat_v6.py`.
+4. The script will run silently in the background (disabling Redraw for maximum computational speed).
+5. A save dialog will appear to export the clean `.csv` dataset.
+
+## 📄 Output Data Structure
+
+The tool outputs a clean, simulation-ready CSV file mapped per floor:
+
+| Floor | Elevation Z (m) | Height (m) | Gross Perimeter (m) | Gross Wall Area (sqm) | Glazing Area (sqm) | WWR % |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | 0.00 | 6.00 | 251.20 | 1507.20 | 602.88 | 40.00 |
+| 2 | 6.00 | 4.50 | 251.20 | 1130.40 | 678.24 | 60.00 |
+
+## ⚙️ Dependencies
+* Rhinoceros 3D (Tested on Rhino 7/8)
+* `rhinoscriptsyntax`
+* `Rhino.Geometry`
     K --> O[Compute Final WWR %]
     N --> O
     O --> P[Append to Dataset]
     
     P --> Q[Export to CSV]
+
