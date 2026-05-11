@@ -1,6 +1,6 @@
 # Automated WWR (Window-to-Wall Ratio) Extractor for Rhino3D
 
-A robust Python tool for Rhino that automates the extraction of Window-to-Wall Ratios directly from complex 3D thermal massing models. Designed to accelerate environmental building performance analysis and green building certification workflows (such as LEED and EEWH) by replacing manual geometric calculations with a fault-tolerant parsing algorithm.
+A Python tool for Rhino that automates the extraction of Window-to-Wall Ratios directly from complex 3D thermal massing models. Designed to accelerate Window-to-Wall Ratio Estimation and green building certification workflows (such as LEED and EEWH) by replacing manual geometric calculations with a fault-tolerant parsing algorithm.
 
 ## 🚀 The Problem
 
