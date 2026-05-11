@@ -1,4 +1,28 @@
-Automated WWR (Window-to-Wall Ratio) Extractor for Rhino3DA robust Python tool for Rhino that automates the extraction of Window-to-Wall Ratios directly from complex 3D thermal massing models. Designed to accelerate environmental building performance analysis and green building certification workflows (such as LEED and EEWH) by replacing manual geometric calculations with a fault-tolerant parsing algorithm.🚀 The ProblemIn environmental design and energy modeling, calculating the accurate Window-to-Wall Ratio (WWR) is a critical but notoriously time-consuming step. Standard architectural models are built for visual representation, not data extraction, leading to several geometric roadblocks:The "Swiss Cheese" Effect: Floor slabs with interior holes (elevator cores, shafts) inflate perimeter calculations if blindly measured.Micro-Gaps: Thermal zones modeled with tiny 1-10mm gaps cause standard Boolean Union algorithms to fail.Multi-Story Massing: Both thermal zones (e.g., atriums, MEP rooms) and continuous facade glazing often span multiple floors, breaking scripts that assume a strict 1-to-1 relationship between an object and a floor level.💡 The SolutionThis script bypasses native architectural drafting flaws by treating the 3D model as a pure mathematical data structure.Key Algorithmic FeaturesZero-Click Layer Auto-Detection: Automatically scans the layer tree, isolating thermal zones and .WINDOW layers while filtering out non-computable data (e.g., underground basements, shading devices, and 2D artifacts)."Gap-Swallowing" Boolean Union: To calculate the true gross exterior envelope, the script dynamically slices the building 1.2m above each floor and applies a 10cm tolerance union. This virtually "inflates" and "deflates" the geometry to bridge drafting gaps and isolate the single largest exterior perimeter ring, automatically discarding interior shaft boundaries.Proportional Area Distribution: Instead of forcing a multi-story window to "belong" to a single floor, the script compares the window's 3D bounding box against the absolute Z-elevations of each floor. It mathematically calculates the vertical overlap ratio and distributes the true square meterage proportionately across the floors it touches.Outlier-Resistant Floor Detection: Detects true architectural stories using a 1.5m sorting tolerance while explicitly ignoring double-height anomalies or "ghost zones" (artifacts < 2m tall) to establish accurate floor-to-floor heights via sequence subtraction.📊 System ArchitectureCode snippetgraph TD
+# Automated WWR (Window-to-Wall Ratio) Extractor for Rhino3D
+
+A robust Python tool for Rhino that automates the extraction of Window-to-Wall Ratios directly from complex 3D thermal massing models. Designed to accelerate environmental building performance analysis and green building certification workflows (such as LEED and EEWH) by replacing manual geometric calculations with a fault-tolerant parsing algorithm.
+
+## 🚀 The Problem
+
+In environmental design and energy modeling, calculating the accurate Window-to-Wall Ratio (WWR) is a critical but notoriously time-consuming step. Standard architectural models are built for visual representation, not data extraction, leading to several geometric roadblocks:
+* **The "Swiss Cheese" Effect:** Floor slabs with interior holes (elevator cores, shafts) inflate perimeter calculations if blindly measured.
+* **Micro-Gaps:** Thermal zones modeled with tiny 1-10mm gaps cause standard Boolean Union algorithms to fail.
+* **Multi-Story Massing:** Both thermal zones (e.g., atriums, MEP rooms) and continuous facade glazing often span multiple floors, breaking scripts that assume a strict 1-to-1 relationship between an object and a floor level.
+
+## 💡 The Solution
+
+This script bypasses native architectural drafting flaws by treating the 3D model as a pure mathematical data structure. 
+
+### Key Algorithmic Features
+1. **Zero-Click Layer Auto-Detection:** Automatically scans the layer tree, isolating thermal zones and `.WINDOW` layers while filtering out non-computable data (e.g., underground basements, shading devices, and 2D artifacts).
+2. **"Gap-Swallowing" Boolean Union:** To calculate the true gross exterior envelope, the script dynamically slices the building 1.2m above each floor and applies a 10cm tolerance union. This virtually "inflates" and "deflates" the geometry to bridge drafting gaps and isolate the single largest exterior perimeter ring, automatically discarding interior shaft boundaries.
+3. **Proportional Area Distribution:** Instead of forcing a multi-story window to "belong" to a single floor, the script compares the window's 3D bounding box against the absolute Z-elevations of each floor. It mathematically calculates the vertical overlap ratio and distributes the true square meterage proportionately across the floors it touches.
+4. **Outlier-Resistant Floor Detection:** Detects true architectural stories using a 1.5m sorting tolerance while explicitly ignoring double-height anomalies or "ghost zones" (artifacts < 2m tall) to establish accurate floor-to-floor heights via sequence subtraction.
+
+## 📊 System Architecture
+
+```mermaid
+graph TD
     A[Input: Rhino 3D Model] --> B{Layer Parsing Engine}
     B -->|Filter: Ignore B_, DEFAULT| C[Extract Thermal Zones]
     B -->|Filter: .WINDOW| D[Extract Glazing Curves/Surfaces]
@@ -23,4 +47,3 @@ Automated WWR (Window-to-Wall Ratio) Extractor for Rhino3DA robust Python tool f
     O --> P[Append to Dataset]
     
     P --> Q[Export to CSV]
-🛠 UsageOpen your 3D thermal massing model in Rhino.Ensure your layers are structured logically (e.g., above-ground zones on standard layers, underground zones prefixed with B_, and windows on a .WINDOW layer).Run EditPythonScript and execute calculate_wwr_massing_flat_v6.py.The script will run silently in the background (disabling Redraw for maximum computational speed).A save dialog will appear to export the clean .csv dataset.📄 Output Data StructureThe tool outputs a clean, simulation-ready CSV file mapped per floor:FloorElevation Z (m)Height (m)Gross Perimeter (m)Gross Wall Area (sqm)Glazing Area (sqm)WWR %10.006.00251.201507.20602.8840.0026.004.50251.201130.40678.2460.00⚙️ DependenciesRhinoceros 3D (Tested on Rhino 7/8)rhinoscriptsyntaxRhino.Geometry
