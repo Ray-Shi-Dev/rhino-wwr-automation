@@ -64,9 +64,5 @@ The tool outputs a clean, simulation-ready CSV file mapped per floor:
 * Rhinoceros 3D (Tested on Rhino 7/8)
 * `rhinoscriptsyntax`
 * `Rhino.Geometry`
-    K --> O[Compute Final WWR %]
-    N --> O
-    O --> P[Append to Dataset]
-    
-    P --> Q[Export to CSV]
+
 
